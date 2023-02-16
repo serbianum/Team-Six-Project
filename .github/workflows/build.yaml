@@ -1,0 +1,32 @@
+name: Build and push Docker image
+
+on:
+  push:
+    branches:
+      - none #master
+
+  workflow_dispatch:    
+  
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: team6-redash
+      IMAGE_TAG: devOps
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Clone repo
+        run: |
+          git clone https://github.com/getredash/redash
+
+      - name Testing working Directory
+        working-directory: redash
+        run: |
+          echo "Current directory is :"
+          pwd
+          echo "Here is a list of contents"
+          ls
+        
