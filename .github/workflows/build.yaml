@@ -48,7 +48,7 @@ jobs:
       - name: Build the docker Image
         working-directory: ${{ env.app_name }}
         run: |
-          docker build -t ${{ env.app_name }}:${{ env.app_version }}
+          docker build -t ${{ env.app_name }}:${{ env.app_version }} .
       
       - name: Tag the docker image
         working-directory: ${{ env.app_name }}
