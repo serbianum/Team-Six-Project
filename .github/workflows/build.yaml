@@ -39,7 +39,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
         with:
-          projectBaseDir: ${{ app_name }}
+          projectBaseDir: ${{ env.app_name }}
           args: >
             -Dsonar.organization=team6-project
             -Dsonar.projectKey=team6-project_redash
