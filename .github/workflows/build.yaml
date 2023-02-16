@@ -73,5 +73,6 @@ jobs:
             gcloud auth configure-docker ${{ env.repo_region }}-docker.pkg.dev
 
       - name: Push Docker image to Artifact Registry
+        working-directory: ${{ env.app_name }}
         run: |-
-          docker push  ${{ env.app_name }}:${{ env.app_version }}
+          docker push  ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
