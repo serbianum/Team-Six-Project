@@ -6,7 +6,8 @@ env:
   app_name:         "redash" # Will be used as working directory must corresponed to the cloned repository name
   tag_new_version:  ${GITHUB_SHA} # GitHub Variable storing commit's message
   enable_sonar:     true # True for repo code scanning
-  project_id:        "terraform-project-serbianum" #Enter GCP project ID
+  project_id:       "terraform-project-serbianum" #Enter GCP project ID
+  gcp_repo_name:    "team6-redash-docker"
 
 name: Build and push Docker image
 
