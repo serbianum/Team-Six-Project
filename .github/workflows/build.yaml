@@ -23,7 +23,6 @@ jobs:
           git clone https://github.com/getredash/redash
 
       - name: Testing working Directory
-        working-directory: redash
         run: |
           echo "Current directory is :"
           pwd
