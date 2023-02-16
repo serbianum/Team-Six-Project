@@ -34,7 +34,7 @@ jobs:
           echo "If the cloning was successful a directory with repo name will be pressent below: "
           ls
           echo "GithubSHA test: "
-          echo ${{ github.sha }}
+          echo `git rev-parse --short HEAD`
       
       # - name: SonarCloud Scan
       #   if: ${{ env.enable_sonar }} == "true"  # makes it optional
