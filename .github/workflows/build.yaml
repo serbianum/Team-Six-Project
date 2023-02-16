@@ -54,7 +54,7 @@ jobs:
       - name: Tag the docker image
         working-directory: ${{ env.app_name }}
         run: | 
-          docker image tag ${{ env.app_name }}:${{ env.app_version }} ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
+          docker image tag ${{ env.app_name }}:${{ env.app_version }} ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
           echo "Docker images list: "
           docker images
 
@@ -75,4 +75,4 @@ jobs:
       - name: Push Docker image to Artifact Registry
         working-directory: ${{ env.app_name }}
         run: |-
-          docker push  ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
+          docker push  ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
