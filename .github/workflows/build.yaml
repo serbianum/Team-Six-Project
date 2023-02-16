@@ -1,13 +1,15 @@
 # Declaring env's
 env:
-  repo:             "https://github.com/getredash/redash"  # Add the URL for the desired GitHub Repository to build and push
+  repo:             "https://github.com/getredash/redash" # Add the URL for the desired GitHub Repository to build and push
   app_version:      "1.0" # Add desired app version
   repo_region:      "us-west2" # Specify Google Artifact Region
   app_name:         "redash" # Will be used as working directory must corresponed to the cloned repository name
   tag_new_version:  ${GITHUB_SHA} # GitHub Variable storing commit's message
   enable_sonar:     true # True for repo code scanning
   project_id:       "terraform-project-serbianum" #Enter GCP project ID
-  gcp_repo_name:    "team6-redash-docker"
+  gcp_repo_name:    "team6-redash-docker" # Google Artifact repository name
+  sonar_cloud_org:  "team6-project" # Add SonarCloud Organization name
+  sonar_cloud_proj: "team6-project_redash" # Add SonaCloud Project name
 
 name: Build and push Docker image
 
@@ -41,8 +43,8 @@ jobs:
         with:
           projectBaseDir: ${{ env.app_name }}
           args: >
-            -Dsonar.organization=team6-project
-            -Dsonar.projectKey=team6-project_redash
+            -Dsonar.organization=${{ env.sonar_cloud_org }}
+            -Dsonar.projectKey=${{ env.sonar_cloud_proj }}
             -Dsonar.verbose=true
 
       - name: Build the docker Image
