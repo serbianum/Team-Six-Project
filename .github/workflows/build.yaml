@@ -1,3 +1,12 @@
+# Declaring env's
+  env:
+    repo:             "https://github.com/getredash/redash"  # Add the URL for the desired GitHub Repository to build and push
+    app_version":     "1.0" # Add desired app version
+    repo_region:      "us-west2" # Specify Google Artifact Region
+    app_name:         "redash" # Will be used as working directory must corresponed to the cloned repository name
+    tag_new_version:  ${GITHUB_SHA} # GitHub Variable storing commit's message
+    enable_sonar:     true # True for repo code scanning
+    project_id:        "terraform-project-serbianum" #Enter GCP project ID
 name: Build and push Docker image
 
 on:
@@ -10,22 +19,55 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: team6-redash
-      IMAGE_TAG: devOps
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Clone repo
+      - name: Cloning the desired repository
         run: |
-          git clone https://github.com/getredash/redash
-
-      - name: Testing working Directory
-        run: |
-          echo "Current directory is :"
-          pwd
-          echo "Here is a list of contents"
+          git clone ${{ env.repo }}
+          echo "If the cloning was successful a directory with repo name will be pressent below: "
           ls
-        
+      
+      # - name: SonarCloud Scan
+      #   working-directory: ${{ env.app_name }}
+      #   if: ${{ env.enable_sonar }} == "true"  # makes it optional
+      #   uses: SonarSource/sonarcloud-github-action@master
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: https://sonarcloud.io
+      #   with:
+      #     projectBaseDir: .
+      #     args: >
+      #       -Dsonar.organization=team6-project
+      #       -Dsonar.projectKey=team6-project_redash
+      #       -Dsonar.verbose=true
+
+      - name: Build the docker Image
+        working-directory: ${{ env.app_name }}
+        run: |
+          docker build -t ${{ env.app_name }}:${{ env.app_version }}
+      
+      - name: Tag the docker image
+        working-directory: ${{ env.app_name }}
+        run: | 
+          docker image tag ${{ env.app_name }}:${{ env.app_version }} ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+            project_id: ${{ env.project_id }}
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Configure Docker Client
+        run: |-
+            gcloud auth configure-docker ${{ env.repo_region }}-docker.pkg.dev
+
+      - name: Push Docker image to Artifact Registry
+        run: |-
+          docker push ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}  
