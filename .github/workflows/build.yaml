@@ -7,6 +7,7 @@
     tag_new_version:  ${GITHUB_SHA} # GitHub Variable storing commit's message
     enable_sonar:     true # True for repo code scanning
     project_id:        "terraform-project-serbianum" #Enter GCP project ID
+
 name: Build and push Docker image
 
 on:
