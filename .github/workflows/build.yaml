@@ -33,8 +33,7 @@ jobs:
           ls
       
       - name: SonarCloud Scan
-        working-directory: ${{ env.app_name }}
-        #if: ${{ env.enable_sonar }} == "true"  # makes it optional
+        if: ${{ env.enable_sonar }} == "true"  # makes it optional
         uses: sonarsource/sonarcloud-github-action@main
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
