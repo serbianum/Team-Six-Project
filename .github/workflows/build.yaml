@@ -1,7 +1,7 @@
 # Declaring env's
 env:
   repo:             "https://github.com/getredash/redash"  # Add the URL for the desired GitHub Repository to build and push
-  app_version":     "1.0" # Add desired app version
+  app_version:      "1.0" # Add desired app version
   repo_region:      "us-west2" # Specify Google Artifact Region
   app_name:         "redash" # Will be used as working directory must corresponed to the cloned repository name
   tag_new_version:  ${GITHUB_SHA} # GitHub Variable storing commit's message
