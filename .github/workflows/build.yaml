@@ -32,19 +32,19 @@ jobs:
           echo "If the cloning was successful a directory with repo name will be pressent below: "
           ls
       
-      # - name: SonarCloud Scan
-      #   working-directory: ${{ env.app_name }}
-      #   if: ${{ env.enable_sonar }} == "true"  # makes it optional
-      #   uses: SonarSource/sonarcloud-github-action@master
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #     SONAR_HOST_URL: https://sonarcloud.io
-      #   with:
-      #     projectBaseDir: .
-      #     args: >
-      #       -Dsonar.organization=team6-project
-      #       -Dsonar.projectKey=team6-project_redash
-      #       -Dsonar.verbose=true
+      - name: SonarCloud Scan
+        working-directory: ${{ env.app_name }}
+        if: ${{ env.enable_sonar }} == "true"  # makes it optional
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.organization=team6-project
+            -Dsonar.projectKey=team6-project_redash
+            -Dsonar.verbose=true
 
       - name: Build the docker Image
         working-directory: ${{ env.app_name }}
