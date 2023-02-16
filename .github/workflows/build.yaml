@@ -58,20 +58,20 @@ jobs:
           echo "Docker images list: "
           docker images
 
-      # - name: Set up Google Cloud SDK
-      #   uses: google-github-actions/setup-gcloud@v1
-      #   with:
-      #       project_id: ${{ env.project_id }}
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+            project_id: ${{ env.project_id }}
 
-      # - name: Authenticate with Google Cloud
-      #   uses: google-github-actions/auth@v1
-      #   with:
-      #     credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
-      # - name: Configure Docker Client
-      #   run: |-
-      #       gcloud auth configure-docker ${{ env.repo_region }}-docker.pkg.dev
+      - name: Configure Docker Client
+        run: |-
+            gcloud auth configure-docker ${{ env.repo_region }}-docker.pkg.dev
 
-      # - name: Push Docker image to Artifact Registry
-      #   run: |-
-      #     docker push ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}  
+      - name: Push Docker image to Artifact Registry
+        run: |-
+          docker push  ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.app_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
