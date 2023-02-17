@@ -28,23 +28,3 @@ helm install traefik  ./application/
 helm list 
 ````
 
-
-
-#### Add SSL certificate + ingress
-```
-
-ingress:
-  enabled: true
-  className: "nginx"
-  annotations: 
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-  hosts:
-    - host: application.projectxconsulting.net
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: 
-  - secretName: chart-example-tls
-    hosts:
-      - application.projectxconsulting.net
-```
