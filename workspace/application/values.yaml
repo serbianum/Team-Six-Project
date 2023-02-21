@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: us-west2-docker.pkg.dev/team6
+  repository: us-west2-docker.pkg.dev
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
