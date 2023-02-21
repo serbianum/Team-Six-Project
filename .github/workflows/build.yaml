@@ -34,18 +34,18 @@ jobs:
           echo "If the cloning was successful a directory with repo name will be pressent below: "
           ls
       
-      - name: SonarCloud Scan
-        if: ${{ env.enable_sonar }} == "true"  # makes it optional
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
-        with:
-          projectBaseDir: ${{ env.app_name }}
-          args: >
-            -Dsonar.organization=${{ env.sonar_cloud_org }}
-            -Dsonar.projectKey=${{ env.sonar_cloud_proj }}
-            -Dsonar.verbose=true
+      # - name: SonarCloud Scan
+      #   if: ${{ env.enable_sonar }} == "true"  # makes it optional
+      #   uses: sonarsource/sonarcloud-github-action@master
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: https://sonarcloud.io
+      #   with:
+      #     projectBaseDir: ${{ env.app_name }}
+      #     args: >
+      #       -Dsonar.organization=${{ env.sonar_cloud_org }}
+      #       -Dsonar.projectKey=${{ env.sonar_cloud_proj }}
+      #       -Dsonar.verbose=true
 
       - name: Build the docker Image
         working-directory: ${{ env.app_name }}
@@ -76,7 +76,7 @@ jobs:
       - name: Push Docker image to Artifact Registry
         working-directory: ${{ env.app_name }}
         run: |-
-          docker push  ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
+          docker push  ${{ env.tag_new_version }}
       
       - name: Scan Docker image
         run: |
