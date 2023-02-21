@@ -76,7 +76,7 @@ jobs:
       - name: Push Docker image to Artifact Registry
         working-directory: ${{ env.app_name }}
         run: |-
-          docker push  ${{ env.tag_new_version }}
+          docker push  ${{ env.app_name }}:${{ env.app_version }}/${{ env.tag_new_version }}
       
       - name: Scan Docker image
         run: |
