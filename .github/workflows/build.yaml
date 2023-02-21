@@ -55,7 +55,7 @@ jobs:
       - name: Tag the docker image
         working-directory: ${{ env.app_name }}
         run: | 
-          docker image tag ${{ env.app_name }}:${{ env.app_version }} ${{ env.tag_new_version }}
+          docker image tag ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }}
           echo "Docker images list: "
           docker images
 
