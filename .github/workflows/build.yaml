@@ -83,3 +83,16 @@ jobs:
           gcloud artifacts docker images scan \
             ${{ env.repo_region }}-docker.pkg.dev/${{ env.project_id }}/${{ env.gcp_repo_name }}/${{ env.app_name }}:${{ env.tag_new_version }} \
             --location ${{ env.repo_region }}--docker.pkg.dev
+
+
+      # - name: Scan Docker image
+      #   id: scan
+      #   uses: google-github-actions/container-analysis@master
+      #   with:
+      #     image: $IMAGE_URI:$GITHUB_SHA
+      #     artifact-note-id: ${{ env.ARTIFACT_NOTE_ID }}
+      #     project-id: ${{ env.PROJECT_ID }}
+      #     wait-for-result: true
+
+      # - name: Print scan result
+      #   run: echo ${{ steps.scan.outputs.result }}
