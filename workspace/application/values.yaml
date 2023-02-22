@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: us-west2-docker.pkg.dev/terraform-project-serbianum/redash
+  repository: us-west2-docker.pkg.dev/terraform-project-serbianum/team6-redash-docker/redash
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
