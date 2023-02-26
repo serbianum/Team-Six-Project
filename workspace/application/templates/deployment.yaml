@@ -43,7 +43,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /doku.php
-              port: http
+              port: {{.Values.containerPortHttp.port}}
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
@@ -53,7 +53,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /doku.php
-              port: http
+              port: {{.Values.containerPortHttp.port}}
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
             timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
