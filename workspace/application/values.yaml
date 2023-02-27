@@ -90,7 +90,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-namespace: "dokuwiki"
+#namespace: "dokuwiki"
 
 livenessProbe:
   enabled: true
