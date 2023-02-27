@@ -34,6 +34,11 @@ jobs:
           echo "If the cloning was successful a directory with repo name will be pressent below: "
           ls
       
+      - name: Switch Branches
+        working-directory: ${{ env.app_name }}
+        run: |
+          git checkout ${{ env.app_version }}
+
       - name: SonarCloud Scan
         if: ${{ env.enable_sonar }} == "true"  # makes it optional
         uses: sonarsource/sonarcloud-github-action@master
