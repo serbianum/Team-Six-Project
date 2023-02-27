@@ -32,7 +32,7 @@
 2. Set the desired values in the values.yaml file
 2. Run 
 ```
-helm package
+helm package [CHART_PATH] [...]
 ```
 3. Install via 
 ```
